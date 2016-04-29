@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.antonioleiva.mvpexample.app.R;
 import com.ppandroid.whitefm.base.AC_Base;
 import com.ppandroid.whitefm.base.AC_ContentFG;
-import com.ppandroid.whitefm.home.FG_MainMusic;
 import com.ppandroid.whitefm.utils.toast.ToastUtil;
 
 import butterknife.Bind;
@@ -47,7 +46,7 @@ public class AC_Main extends AC_Base    implements NavigationView.OnNavigationIt
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-      startActivity(AC_ContentFG.createIntent(AC_Main.this, FG_MainMusic.class.getName(), "", null));
+     // startActivity(AC_ContentFG.createIntent(AC_Main.this, FG_MainMusic.class.getName(), "", null));
     }
 
     @Override

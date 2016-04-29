@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.antonioleiva.mvpexample.app.R;
 import com.ppandroid.whitefm.utils.Utils_System;
@@ -32,6 +31,8 @@ public class ToobarHelper {
 
     /*视图构造器*/
     private LayoutInflater mInflater;
+
+    View toolbarView;
 
     /*
     * 两个属性
@@ -64,8 +65,8 @@ public class ToobarHelper {
 
     private void initToolBar() {
         /*通过inflater获取toolbar的布局文件*/
-        View toolbar = mInflater.inflate(R.layout.toolbar, mContentView);
-        mToolBar = (Toolbar) toolbar.findViewById(R.id.id_tool_bar);
+         toolbarView = mInflater.inflate(R.layout.toolbar, mContentView);
+        mToolBar = (Toolbar) toolbarView.findViewById (R.id.id_tool_bar);
     }
 
     private void initUserView(int id) {
