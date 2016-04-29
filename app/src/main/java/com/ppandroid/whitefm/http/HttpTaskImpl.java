@@ -1,9 +1,15 @@
 package com.ppandroid.whitefm.http;
 
+import com.antonioleiva.mvpexample.app.R;
 import com.ppandroid.whitefm.MApplication;
+import com.ppandroid.whitefm.http.bean.ET_Base;
 import com.ppandroid.whitefm.http.bean.HM_HttpTask;
 import com.ppandroid.whitefm.http.bean.HttpType;
+import com.ppandroid.whitefm.http.utils.HttpUtils;
+import com.ppandroid.whitefm.http.utils.Utils_Http;
 import com.ppandroid.whitefm.utils.NetworkUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.TreeMap;
 
@@ -17,7 +23,7 @@ public class HttpTaskImpl implements IHttpTask{
     }
 
     @Override
-    public void doTask(HM_HttpTask httpTaskParams) {
+    public void doTask(final HM_HttpTask httpTaskParams) {
 
         HttpUtils.getInstance().exeBackgroundTask(new Runnable() {
             public void run() {
@@ -66,5 +72,37 @@ public class HttpTaskImpl implements IHttpTask{
     @Override
     public void doTask(TreeMap<String, Object> httpParams, HttpType httpType, String url) {
 
+    }
+
+
+    /**
+     * 根据条件来获取缓存数据并且POST给UI显示
+     * @param httpTaskParams
+     * @return 是否已经把缓存数据推送给UI了，true:给UI成功，false：没有给UI
+     * @author LuoZheng
+     * @date 2015年7月13日 上午11:52:01
+     */
+    private boolean getCacheData(final HM_HttpTask httpTaskParams) {
+       /* Utils_SharedPreferences sharedPreferences = new Utils_SharedPreferences(httpTaskParams.context,//
+                ConstantParams.sharePreferenceFileName);
+        String userPassportId = sharedPreferences.getString(ConstantParams.sp_passportid_key, ""); // 用户账号Id
+        if (httpTaskParams.dBquery == null) {
+            httpTaskParams.dBquery = new HM_DBquery();
+        }
+        httpTaskParams.dBquery.userId = userPassportId;
+
+        Gson gson = new Gson();
+        DBModel dbModel = DBModelDaoInfc.getInstance().querySingle(httpTaskParams.context, //
+                new Property[] { DBModelDao.Properties.HttpUrl, DBModelDao.Properties.ExtraKey },//
+                new Object[] { httpTaskParams.url, gson.toJson(httpTaskParams.dBquery) });
+
+        if (dbModel != null && httpTaskParams.etDataBase !=null && httpTaskParams.etHttpResponse != null) {// 有缓存数据
+            String json = dbModel.getJson();
+            httpTaskParams.etDataBase.taskId = httpTaskParams.etHttpResponse.taskId;
+            httpTaskParams.etDataBase.httpResponse = gson.fromJson(json, httpTaskParams.etHttpResponse.httpResponse.getClass());
+            EventBus.getDefault().post(httpTaskParams.etDataBase);
+            return true;
+        }*/
+        return false;
     }
 }
