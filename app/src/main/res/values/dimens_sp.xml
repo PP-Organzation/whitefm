@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 1号 标准大小（菜单列表、按钮字体）28px -->
+    <dimen name="text_size_1">15sp</dimen>
+    <!-- 2号 文章标题 34px -->
+    <dimen name="text_size_2">17sp</dimen>
+    <!-- 3号 列表页优标签 32px -->
+    <dimen name="text_size_3">16sp</dimen>
+    <!-- 4号 列表页标题 30px -->
+    <dimen name="text_size_4">14sp</dimen>
+    <!-- 5号 列表页次要信息 24px -->
+    <dimen name="text_size_5">12sp</dimen>
+    <!-- 6号 列表页再次要信息 22px -->
+    <dimen name="text_size_6">11sp</dimen>
+    <!-- 7号  大字体  138px -->
+    <dimen name="text_size_7">69sp</dimen>
+    <!-- 8号 大符号  54px -->
+    <dimen name="text_size_8">27sp</dimen>
+    <!-- 9号    18px -->
+    <dimen name="text_size_9">9sp</dimen>
+    <!-- 10号    40px -->
+    <dimen name="text_size_10">20sp</dimen>
+
+</resources>

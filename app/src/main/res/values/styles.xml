@@ -1,0 +1,47 @@
+<resources>
+    <declare-styleable name="playerview">
+        <attr name="cover" format="integer" />
+        <attr name="buttonColor" format="color"/>
+        <attr name="progressEmptyColor" format="color"/>
+        <attr name="progressLoadedColor" format="color"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="BaseAPPThemeLight">
+
+        <item name="android:colorBackground">@color/background_material_dark</item>
+    </style>
+
+    <style name="AppThemeNight" parent="BaseAPPThemeNight">
+
+    </style>
+
+
+
+    <!--白天-->
+    <style name="BaseAPPThemeLight" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="textLight">@color/colorPrimaryNight</item>
+        <item name="appBg">@color/white</item>
+        <item name="textNight">@color/gray</item>
+    </style>
+    <!--黑夜主题-->
+    <style name="BaseAPPThemeNight" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryNight</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="textLight">@android:color/white</item>
+        <item name="appBg">@color/colorPrimaryDarkNight</item>
+        <item name="textNight">@color/gray</item>
+    </style>
+
+
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="textLight" format="reference" />
+    <attr name="textNight" format="reference" />
+    <attr name="appBg" format="reference" />
+
+
+    <!-- 1号 标准大小（菜单列表、按钮字体）28px -->
+    <attr name="text_size_1" format="dimension" />
+    <!-- 2号 文章标题 34px -->
+    <attr name="text_size_2" format="dimension" />
+    <!-- 3号 列表页标签 32px -->
+    <attr name="text_size_3" format="dimension" />
+    <!-- 4号 列表页标题 30px -->
+    <attr name="text_size_4" format="dimension" />
+    <!-- 5号 列表页次要信息 24px -->
+    <attr name="text_size_5" format="dimension" />
+    <!-- 6号 列表页再次要信息22px -->
+    <attr name="text_size_6" format="dimension" />
+    <!-- 7号 大值 138px -->
+    <attr name="text_size_7" format="dimension" />
+    <!-- 8号 人民币符号 54px -->
+    <attr name="text_size_8" format="dimension" />
+    <!-- 9号 18px -->
+    <attr name="text_size_9" format="dimension" />
+    <!-- 10号  40px -->
+    <attr name="text_size_10" format="dimension" />
+
+</resources>

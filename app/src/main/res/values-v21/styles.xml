@@ -1,0 +1,30 @@
+<resources>>
+
+
+
+    <style name="BaseAPPThemeCYAN" parent="Theme.AppCompat.NoActionBar">
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="textLight">@color/primary_text</item>
+        <item name="appBg">@android:color/transparent</item>
+        <item name="textNight">@color/secondary_text</item>
+        <item name="text_size_1">@dimen/text_size_1</item>
+        <item name="text_size_2">@dimen/text_size_2</item>
+        <item name="text_size_3">@dimen/text_size_3</item>
+        <item name="text_size_4">@dimen/text_size_4</item>
+        <item name="text_size_5">@dimen/text_size_5</item>
+        <item name="text_size_6">@dimen/text_size_6</item>
+        <item name="text_size_7">@dimen/text_size_7</item>
+        <item name="text_size_8">@dimen/text_size_8</item>
+        <item name="text_size_9">@dimen/text_size_9</item>
+        <item name="text_size_10">@dimen/text_size_10</item>
+    </style>
+</resources>
