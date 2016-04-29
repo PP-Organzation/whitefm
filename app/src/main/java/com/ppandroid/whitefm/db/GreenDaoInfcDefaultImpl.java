@@ -1,12 +1,12 @@
 package com.ppandroid.whitefm.db;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 
-import com.android.debugLogUtils.DebugLog;
-import com.android.devDbManager.GreenDaoInterfaceImpl;
+import com.ppandroid.whitefm.db.base.GreenDaoInterfaceImpl;
+import com.ppandroid.whitefm.utils.Utils_Debug;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
@@ -25,8 +25,6 @@ public class GreenDaoInfcDefaultImpl<K> extends GreenDaoInterfaceImpl<K, Long> {
 
     /**
      * @Description ??????????????
-     * @author LuoZheng
-     * @date 2015?3?24? ??11:42:38
      */
     public void save(Context context, List<K> list) {
         save(context, list, false);
@@ -34,8 +32,6 @@ public class GreenDaoInfcDefaultImpl<K> extends GreenDaoInterfaceImpl<K, Long> {
 
     /**
      * @Description ??????????????????
-     * @author LuoZheng
-     * @date 2015?3?24? ??11:42:55
      */
     public void save(Context context, List<K> list, boolean deleteAll) {
         AbstractDao<K, Long> dao = (AbstractDao<K, Long>) DbManager.getInstance(context).getDao(className);
@@ -47,8 +43,6 @@ public class GreenDaoInfcDefaultImpl<K> extends GreenDaoInterfaceImpl<K, Long> {
 
     /**
      * @Description ???????????????????
-     * @author LuoZheng
-     * @date 2015?3?24? ??11:42:55
      */
     public void save(Context context, K k) {
         save(context, k, false);
@@ -56,8 +50,6 @@ public class GreenDaoInfcDefaultImpl<K> extends GreenDaoInterfaceImpl<K, Long> {
 
     /**
      * @Description ??????????????????
-     * @author LuoZheng
-     * @date 2015?3?24? ??11:42:55
      */
     public void save(Context context, K k, boolean deleteAll) {
         AbstractDao<K, Long> dao = (AbstractDao<K, Long>) DbManager.getInstance(context).getDao(className);
@@ -70,9 +62,7 @@ public class GreenDaoInfcDefaultImpl<K> extends GreenDaoInterfaceImpl<K, Long> {
     /**
      * @Description ????????<br />
      *              ??WhereCondition?????????????????null???????<br />
-     *              ?????{@link GreenDaoInfcDefaultImpl#query( Context , Property[], Object[])}
-     * @author LuoZheng
-     * @date 2015?3?24? ??11:44:53
+     *              ?????{@link GreenDaoInfcDefaultImpl#query(Context, Property[], Object[])}
      */
     @Deprecated
     public List<K> query(Context context, WhereCondition wc, WhereCondition... wcs) {
@@ -89,11 +79,9 @@ public class GreenDaoInfcDefaultImpl<K> extends GreenDaoInterfaceImpl<K, Long> {
 
     /**
      * @Description ????????,????????
-     * @author LuoZheng
-     * @date 2015?3?24? ??11:45:16
      */
     public List<K> query(Context context, Property[] columns, Object[] columnValues) {
-    	DebugLog.d(className);
+        Utils_Debug.d(className);
         AbstractDao<K, Long> dao = (AbstractDao<K, Long>) DbManager.getInstance(context).getDao(className);
         QueryBuilder<K> queryBuilder = dao.queryBuilder();
         if (columns == null || columns.length == 0) {
@@ -127,8 +115,6 @@ public class GreenDaoInfcDefaultImpl<K> extends GreenDaoInterfaceImpl<K, Long> {
 
     /**
      * @Description ?????
-     * @author LuoZheng
-     * @date 2015?3?24? ??11:51:26
      */
     public List<K> query(Context context) {
         return query(context, null);
@@ -136,8 +122,6 @@ public class GreenDaoInfcDefaultImpl<K> extends GreenDaoInterfaceImpl<K, Long> {
 
     /**
      * @Description ??????
-     * @author LuoZheng
-     * @date 2015?3?24? ??11:51:39
      */
     @Deprecated
     public K querySingle(Context context, WhereCondition wc, WhereCondition... wcs) {
@@ -148,8 +132,6 @@ public class GreenDaoInfcDefaultImpl<K> extends GreenDaoInterfaceImpl<K, Long> {
 
     /**
      * @Description ??????
-     * @author LuoZheng
-     * @date 2015?3?24? ??11:57:27
      */
     public K querySingle(Context context, Property[] columns, Object[] columnValues) {
         List<K> ks = query(context, columns, columnValues);
@@ -159,8 +141,6 @@ public class GreenDaoInfcDefaultImpl<K> extends GreenDaoInterfaceImpl<K, Long> {
 
     /**
      * @Description ?????????
-     * @author LuoZheng
-     * @date 2015?3?24? ??11:51:53
      */
     public K querySingle(Context context) {
         return querySingle(context, new Property[]{}, new Object[]{});
