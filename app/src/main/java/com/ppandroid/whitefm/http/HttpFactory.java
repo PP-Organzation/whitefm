@@ -5,6 +5,7 @@ package com.ppandroid.whitefm.http;
  */
 public class HttpFactory {
     private volatile  static HttpFactory instance;
+    private volatile static IHttpTask httpTask;
     private HttpFactory(){
 
     }
@@ -18,4 +19,17 @@ public class HttpFactory {
         }
         return instance;
     }
+
+    public  IHttpTask getHttpTask(){
+        if (httpTask==null){
+            synchronized ((HttpTaskImpl.class)){
+                if (httpTask==null){
+                    httpTask=new HttpTaskImpl();
+                }
+            }
+        }
+        return httpTask;
+    }
+
+
 }
