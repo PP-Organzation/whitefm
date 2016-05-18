@@ -10,7 +10,7 @@ public class HM_HttpTask {
     public Context context;
 
     /**	HTTP请求方式：GET,POST,DELETE,PUT等*/
-    public HttpType httpType;
+    public HttpType httpType=HttpType.GET;
 
     /**	HTTP请求的URL，不能为空	*/
     public String url;

@@ -5,8 +5,8 @@ import android.widget.TextView;
 import com.antonioleiva.mvpexample.app.R;
 import com.ppandroid.whitefm.base.FG_Base;
 import com.ppandroid.whitefm.http.ET_HttpError;
-import com.ppandroid.whitefm.http.bean.BN_BaseBody;
-import com.ppandroid.whitefm.http.bean.HM_Base;
+import com.ppandroid.whitefm.http.bean.ET_Base;
+import com.ppandroid.whitefm.http.bean.HM_HttpTask;
 import com.ppandroid.whitefm.okhttp.IOKHttpListener;
 
 import butterknife.Bind;
@@ -28,14 +28,14 @@ public class FG_OkHttpTest extends FG_Base implements IOKHttpListener{
 
 
     @Override
-    public HM_Base setHttpHM() {
+    public HM_HttpTask setHttpHM() {
         return null;
     }
-
     @Override
-    public void onResponse(BN_BaseBody body) {
+    public void onResponse(ET_Base et_base) {
 
     }
+
 
     @Override
     public void onFailure(ET_HttpError et_httpError) {
