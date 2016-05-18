@@ -35,7 +35,7 @@ public abstract   class FG_Base extends Fragment {
     /**
      * 开启任务
      */
-    void startHttpTasK(IOKHttpListener listener){
+    public void startHttpTasK(IOKHttpListener listener){
         if (listener!=null){
             OKHttp.startHttpTasK(listener);
         }
