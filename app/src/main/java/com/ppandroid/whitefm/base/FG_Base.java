@@ -1,10 +1,13 @@
 package com.ppandroid.whitefm.base;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Bundle;
+
+import com.ppandroid.whitefm.okhttp.IOKHttpListener;
+import com.ppandroid.whitefm.okhttp.OKHttp;
 
 import butterknife.ButterKnife;
 
@@ -28,6 +31,18 @@ public abstract   class FG_Base extends Fragment {
         afterViews();
         return view;
     }
+
+    /**
+     * 开启任务
+     */
+    void startHttpTasK(IOKHttpListener listener){
+        if (listener!=null){
+            OKHttp.startHttpTasK(listener);
+        }
+
+    };
+
+
     /**
      * 销毁当前页面
      */

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.antonioleiva.mvpexample.app.R;
 import com.ppandroid.whitefm.base.AC_Base;
 import com.ppandroid.whitefm.base.AC_ContentFG;
+import com.ppandroid.whitefm.home.FG_OkHttpTest;
 import com.ppandroid.whitefm.utils.toast.ToastUtil;
 
 import butterknife.Bind;
@@ -68,7 +69,7 @@ public class AC_Main extends AC_Base    implements NavigationView.OnNavigationIt
     public void onClick(View v){
         switch (v.getId()){
             case R.id.bt_to_fg:
-                startActivity(AC_ContentFG.createIntent(AC_Main.this,"ceshi","",null));
+                startActivity(AC_ContentFG.createIntent(AC_Main.this, FG_OkHttpTest.class.getName(),"okHTTPTEST",null));
                 break;
             default:
                 break;
