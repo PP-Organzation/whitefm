@@ -1,8 +1,7 @@
 package com.ppandroid.whitefm.okhttp;
 
-import com.antonioleiva.mvpexample.app.R;
-import com.ppandroid.whitefm.MApplication;
-import com.ppandroid.whitefm.http.ET_HttpError;
+import com.ppandroid.whitefm.http.utils.HttpUtils;
+import com.ppandroid.whitefm.utils.Utils_Debug;
 import com.ppandroid.whitefm.utils.Utils_ObjToMap;
 
 import org.apache.http.protocol.HTTP;
@@ -11,118 +10,154 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.TreeMap;
 
-import okhttp3.Call;
-import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
  * Created by yeqinfu on 16-5-18.
  */
 public class OKHttp {
-    private volatile  static OKHttp instance;
-    public OkHttpClient	client	= new OkHttpClient();
-    private OKHttp(){
+	private volatile static OKHttp	instance;
+	public OkHttpClient				client	= new OkHttpClient();
 
-    }
-    public static OKHttp getInstance(){
-        if (instance==null){
-            synchronized ((OKHttp.class)){
-                if (instance==null){
-                    instance=new OKHttp();
-                }
-            }
-        }
-        return instance;
-    }
+	private OKHttp() {
 
-
-	public void startHttpTasK(IOKHttpListener listener) {
-		if (listener.setHttpHM() == null) {
-			throw new IllegalArgumentException("Logic Bean cannot be null !");
-		}
-        TreeMap<String, Object> params = Utils_ObjToMap.obj2map(listener.setHttpHM().httpParams);
-
-
-        Response response=null;
-		try {
-			switch (listener.setHttpHM().httpType) {
-			case GET:
-				response=execGetTask(syncGet(listener.setHttpHM().url,params));
-				break;
-			case POST_KEY_VALUE:
-
-				break;
-			default:
-				break;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        new ET_HttpError(listener.setHttpHM().etHttpResponse.taskId,
-                Integer.parseInt(MApplication.getContext().getResources().getString(R.string.errorcode_9002)),
-                MApplication.getContext().getResources().getString(R.string.errorcode_9002_desc));
-
-
-
-		//创建okHttpClient对象
-		OkHttpClient mOkHttpClient = new OkHttpClient();
-		//创建一个Request
-		final Request request = new Request.Builder().url("http://h5-api.pre.qw.com/h5/maicromall/order/queryLC").build();
-		//new call
-		Call call = mOkHttpClient.newCall(request);
-		//请求加入调度
-		call.enqueue(new Callback() {
-			@Override
-			public void onFailure(Call call, IOException e) {
-
-			}
-
-			@Override
-			public void onResponse(Call call, Response response) throws IOException {
-
-			}
-		});
 	}
 
-    /**
-     * get 请求
-     * @param url
-     * @return
-     * @throws IOException
-     */
+	public static OKHttp getInstance() {
+		if (instance == null) {
+			synchronized ((OKHttp.class)) {
+				if (instance == null) {
+					instance = new OKHttp();
+				}
+			}
+		}
+		return instance;
+	}
+
+	public void startHttpTasK(final IOKHttpListener listener) {
+		HttpUtils.getInstance().exeBackgroundTask(new Runnable() {
+			public void run() {
+				if (listener.setHttpHM() == null) {
+					throw new IllegalArgumentException("Logic Bean cannot be null !");
+				}
+				TreeMap<String, Object> params = Utils_ObjToMap.obj2map(listener.setHttpHM().httpParams);
+				Response response = null;
+				try {
+					switch (listener.setHttpHM().httpType) {
+					case GET:
+						response = execGetTask(get(listener.setHttpHM().url, params));
+						break;
+					case POST_KEY_VALUE:
+						response = execPostTask(post(listener.setHttpHM().url, params));
+						break;
+					default:
+						break;
+					}
+					if (response != null) {//请求成功
+						Utils_Debug.d(response.toString());
+					}
+					else {
+
+					}
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		/*	new ET_HttpError(listener.setHttpHM().etHttpResponse.taskId, Integer.parseInt(MApplication.getContext().getResources().getString(R.string.errorcode_9002)), MApplication.getContext()
+					.getResources().getString(R.string.errorcode_9002_desc));*/
+	}
+
+	/**
+	 * get 请求
+	 * 
+	 * @param url
+	 * @return
+	 * @throws IOException
+	 */
 	private Response execGetTask(String url) throws IOException {
 		Request request = new Request.Builder().url(url).build();
 		Response response = client.newCall(request).execute();
 		return response;
 	}
 
+	/**
+	 * post 请求
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	private Response execPostTask(Request request) throws IOException {
+		Response response = client.newCall(request).execute();
+		return response;
+	}
 
+	/**
+	 * @Description GET获取（同步方式） get 拼接
+	 */
+	public String get(final String urlStr, final TreeMap<String, Object> params) {
+		StringBuffer buffer = new StringBuffer(urlStr);
+		if (params != null && params.size() > 0) {
+			buffer.append("?");
+			Iterator<String> iterator = params.keySet().iterator();
+			while (iterator.hasNext()) {
+				String paramKey = iterator.next();
+				String paramsValue = String.valueOf(params.get(paramKey));
+				try {
+					buffer.append(paramKey).append("=").append(URLEncoder.encode(paramsValue, HTTP.UTF_8)).append("&");
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+			}
+			buffer.deleteCharAt(buffer.length() - 1);
+		}
+		return buffer.toString();
+	}
 
-    /**
-     * @Description GET获取（同步方式）
-     * get 拼接
-     */
-    public String syncGet(final String urlStr, final TreeMap<String, Object> params) {
-        StringBuffer buffer = new StringBuffer(urlStr);
-        if (params != null && params.size() > 0) {
-            buffer.append("?");
-            Iterator<String> iterator = params.keySet().iterator();
-            while (iterator.hasNext()) {
-                String paramKey = iterator.next();
-                String paramsValue = String.valueOf(params.get(paramKey));
-                try {
-                    buffer.append(paramKey).append("=").append(URLEncoder.encode(paramsValue, HTTP.UTF_8)).append("&");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-            }
-            buffer.deleteCharAt(buffer.length() - 1);
-        }
-        return buffer.toString();
-    }
+	public static final MediaType	JSON	= MediaType.parse("application/json; charset=utf-8");
+
+	String post(String url, String json) throws IOException {
+		RequestBody body = RequestBody.create(JSON, json);
+		Request request = new Request.Builder().url(url).post(body).build();
+		Response response = client.newCall(request).execute();
+		return response.body().string();
+	}
+
+	/**
+	 * post请求 map为body
+	 *
+	 * @param url
+	 * @param map
+	 */
+	public Request post(String url, Map<String, Object> map) {
+		/**
+		 * 创建请求的参数body
+		 */
+		FormBody.Builder builder = new FormBody.Builder();
+		/**
+		 * 遍历key
+		 */
+		if (null != map) {
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+				builder.add(entry.getKey(), entry.getValue().toString());
+			}
+		}
+		RequestBody body = builder.build();
+		Request request = new Request.Builder().url(url).post(body).build();
+		return request;
+
+	}
+	/**
+	 * 统一json格式 { apiStatus:0为成功 其他为错误 错误码另定义 apiMassage:"" body:{ 成功返回值 } }
+	 */
 
 }
