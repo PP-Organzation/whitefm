@@ -1,10 +1,17 @@
 package com.ppandroid.whitefm.okhttp;
 
+import android.os.Handler;
+import android.os.Looper;
+
+import com.google.gson.Gson;
+import com.ppandroid.whitefm.http.bean.BN_BaseBody;
+import com.ppandroid.whitefm.http.bean.ET_Base;
 import com.ppandroid.whitefm.http.utils.HttpUtils;
-import com.ppandroid.whitefm.utils.Utils_Debug;
 import com.ppandroid.whitefm.utils.Utils_ObjToMap;
 
 import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -25,10 +32,12 @@ import okhttp3.Response;
  */
 public class OKHttp {
 	private volatile static OKHttp	instance;
-	public OkHttpClient				client	= new OkHttpClient();
+	public OkHttpClient				client;
+	private Handler					handler;
 
 	private OKHttp() {
-
+		client = new OkHttpClient();
+		handler = new Handler(Looper.getMainLooper());
 	}
 
 	public static OKHttp getInstance() {
@@ -49,8 +58,8 @@ public class OKHttp {
 					throw new IllegalArgumentException("Logic Bean cannot be null !");
 				}
 				TreeMap<String, Object> params = Utils_ObjToMap.obj2map(listener.setHttpHM().httpParams);
-				Response response = null;
 				try {
+					Response response = null;
 					switch (listener.setHttpHM().httpType) {
 					case GET:
 						response = execGetTask(get(listener.setHttpHM().url, params));
@@ -61,20 +70,33 @@ public class OKHttp {
 					default:
 						break;
 					}
-					if (response != null) {//请求成功
-						Utils_Debug.d(response.toString());
-					}
-					else {
+                    if (response!=null){
+                        JSONObject jsonOBJ = new JSONObject(response.toString());
+                        Gson gson = new Gson();
+                        Object body = jsonOBJ.get("body");
+                        String bodyJson = body.toString();
+                        BN_BaseBody httpResponse=new BN_BaseBody();
+                        ET_Base et=new ET_Base(listener.setHttpHM().taskId,httpResponse);
+                   /*     httpTaskParams.etHttpResponse.httpResponse = gson.fromJson(bodyJson, httpTaskParams.etHttpResponse.httpResponse.getClass());
+                        listener.onResponse();*/
 
-					}
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+
+                            }
+                        });
+                    }
 
 				} catch (IOException e) {
 					e.printStackTrace();
-				}
-			}
+				} catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 		});
-		/*	new ET_HttpError(listener.setHttpHM().etHttpResponse.taskId, Integer.parseInt(MApplication.getContext().getResources().getString(R.string.errorcode_9002)), MApplication.getContext()
-					.getResources().getString(R.string.errorcode_9002_desc));*/
+
 	}
 
 	/**
